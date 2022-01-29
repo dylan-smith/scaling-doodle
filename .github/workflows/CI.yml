@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        runner-os: [windows-latest, ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.runner-os }}
+    concurrency: integration-test
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Sleep for 30 seconds
+      run: Start-Sleep -s 30
+      shell: pwsh
+
+    
